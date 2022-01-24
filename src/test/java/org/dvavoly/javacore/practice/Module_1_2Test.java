@@ -17,13 +17,13 @@ class Module_1_2Test {
     @Test
     void givenAnArrayWithDuplicates_expectTrue() {
         var array = new int[]{4, 5, 6, 6, 8};
-        assertTrue(module_1_2.duplicatesNumberFinder(array));
         assertTrue(module_1_2.duplicatesNumberFinderWithStream(array));
         assertTrue(module_1_2.duplicatesNumberFinderWithHashSet(array));
     }
     @Test
     void givenAnArrayWithoutDuplicates_expectFalse() {
         var array = new int[]{4, 5, 6, 7, 8};
-        assertFalse(module_1_2.duplicatesNumberFinder(array));
+        assertFalse(module_1_2.duplicatesNumberFinderWithStream(array));
+        assertFalse(module_1_2.duplicatesNumberFinderWithHashSet(array));
     }
 }

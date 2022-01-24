@@ -1,9 +1,11 @@
 package org.dvavoly.javacore.practice;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Module_1_2 {
     /**
@@ -19,17 +21,18 @@ public class Module_1_2 {
      * Т.е. индексы 1 и 2 (значение 8 и 15) в сумме дают искомое число 23
      */
 
+    // 
     public int[] findIndexesByNumber(int[] array, int number) {
         int[] result = new int[2];
+        // Retrieving an element from a HashMap takes constant time, O(1)
+        Map<Integer, Integer> tempMap = new HashMap<>();
         for (int i = 0; i < array.length - 1; i++) {
             int searchNumber = number - array[i];
-            for (int j = i; j < array.length; j++) {
-                if (array[j] == searchNumber) {
-                    result[0] = i;
-                    result[1] = j;
-                    return result;
-                }
+            if(tempMap.containsKey(searchNumber)) {
+                result[0] = tempMap.get(searchNumber);
+                result[1] = i;
             }
+            tempMap.put(array[i], i);
         }
         return result;
     }
@@ -49,20 +52,8 @@ public class Module_1_2 {
      * Дубликатов нет
      */
 
-    public boolean duplicatesNumberFinder(int[] array) {
-        for (int i = 0; i < array.length - 1; i++) {
-            for (int j = i + 1; j < array.length - 1; j++) {
-                if (array[i] == array[j]) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     public boolean duplicatesNumberFinderWithHashSet(int[] array) {
-        Set<Integer> tempSet = new HashSet<Integer>();
-        Arrays.stream(array).forEach(tempSet::add);
+        Set<Integer> tempSet = Arrays.stream(array).boxed().collect(Collectors.toSet());
         return !(array.length == tempSet.size());
     }
 
